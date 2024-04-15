@@ -1,7 +1,10 @@
 export const dynamic = 'force-dynamic'
 
 import { getRoom } from '@/lib/api/room'
-import EditorTextArea from './editor-text-area'
+import { default as _dynamic } from 'next/dynamic'
+const EditorTextArea = _dynamic(() => import('./editor-text-area'), {
+  ssr: false,
+})
 import EditorControls from './editor-controls'
 
 interface Props {
