@@ -86,7 +86,7 @@ export default function EditorTextArea({ roomId }: EditorProps) {
     const doc = new Y.Doc()
 
     const provider = new WebrtcProvider(roomId, doc, {
-      signaling: ['wss://signaling.yjs.dev'],
+      signaling: ['wss://bazzadev-code-server.fly.dev'],
     })
 
     const username = uniqueNamesGenerator({ dictionaries: [animals] })
