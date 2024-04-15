@@ -1,5 +1,6 @@
+export const dynamic = 'force-dynamic'
+
 import { getRoom } from '@/lib/api/room'
-import Editor from './editor-text-area'
 import EditorTextArea from './editor-text-area'
 import EditorControls from './editor-controls'
 
