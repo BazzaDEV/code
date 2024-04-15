@@ -29,7 +29,7 @@ export default function CreateRoomButton() {
   return (
     <Button
       size="lg"
-      className="font-mono text-xl tracking-tight font-medium min-w-[350px]"
+      className="min-w-[350px] font-mono text-xl font-medium tracking-tight"
       disabled={loading}
       onClick={handleClick}
     >

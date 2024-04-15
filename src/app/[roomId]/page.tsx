@@ -20,7 +20,7 @@ export default async function Page({ params }: Props) {
     return <div>Room does not exist.</div>
   }
   return (
-    <div className="flex flex-col min-h-screen w-full">
+    <div className="flex min-h-screen w-full flex-col">
       <EditorControls />
       <EditorTextArea roomId={room.id} />
     </div>

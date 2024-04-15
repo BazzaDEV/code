@@ -149,4 +149,3 @@ server.on('upgrade', (request, socket, head) => {
 server.listen(port)
 
 console.log('Signaling server running on localhost:', port)
-
