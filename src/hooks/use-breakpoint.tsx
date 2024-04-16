@@ -12,9 +12,11 @@ export function useBreakpoint() {
   }
 
   // State to store the current breakpoint
-  const [breakpoint, setBreakpoint] = useState(getBreakpoint(window.innerWidth))
+  const [breakpoint, setBreakpoint] = useState(getBreakpoint(0))
 
   useEffect(() => {
+    setBreakpoint(getBreakpoint(window.innerWidth))
+
     const handleResize = () => {
       setBreakpoint(getBreakpoint(window.innerWidth))
     }
