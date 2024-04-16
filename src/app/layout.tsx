@@ -20,21 +20,23 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
     >
-      <body
-        className={`${inter.className} ${jetbrainsMono.variable} min-h-screen`}
-      >
+      <body>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           disableTransitionOnChange
         >
-          {children}
-          {process.env.NODE_ENV === 'development' && (
-            <div className="absolute bottom-0 left-0 m-4">
-              <BreakpointHelper />
-            </div>
-          )}
-          <Toaster richColors />
+          <div
+            className={`${inter.className} ${jetbrainsMono.variable} min-h-screen`}
+          >
+            {children}
+            {process.env.NODE_ENV === 'development' && (
+              <div className="absolute bottom-0 left-0 m-4">
+                <BreakpointHelper />
+              </div>
+            )}
+            <Toaster richColors />
+          </div>
         </ThemeProvider>
       </body>
     </html>
