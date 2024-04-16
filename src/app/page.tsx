@@ -1,13 +1,7 @@
-'use client'
-
-import { useScramble } from 'use-scramble'
 import CreateRoomButton from './create-room-button'
-import { useEffect, useState } from 'react'
 import {
   Code,
-  Github,
   Highlighter,
-  LucideLink,
   Package,
   Terminal,
   UsersRound,
@@ -16,39 +10,15 @@ import {
 import Link from 'next/link'
 import Image from 'next/image'
 import bazzadev from '@/../public/bazzadev.png'
-import { cn } from '@/lib/utils'
+import Title from './title'
 
 export default function Home() {
-  const texts = ['code?', 'develop?', 'share?', 'work?']
-  const [index, setIndex] = useState(0)
-
-  const { ref: titleRef } = useScramble({
-    text: texts[index],
-    overflow: true,
-    speed: 0.5,
-    scramble: 5,
-  })
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setIndex((index + 1) % 3)
-    }, 3000)
-
-    return () => clearInterval(timer)
-  })
   return (
     <main className="mx-auto flex h-screen max-w-screen-xl flex-col items-center bg-zinc-100 dark:bg-zinc-950">
       <div className="flex w-full flex-1 flex-col items-center justify-center gap-12 p-4">
         <div className="flex flex-col items-center gap-12">
           <Terminal className="size-24 text-zinc-800 sm:size-64" />
-          <h1
-            className={cn(
-              'h-12 w-full p-1 text-center text-4xl font-bold tracking-tighter sm:h-24 sm:text-7xl',
-              'bg-gradient-to-t from-zinc-50 to-zinc-100 bg-clip-text text-transparent',
-            )}
-          >
-            Ready to <span ref={titleRef} />
-          </h1>
+          <Title />
           <p className="text-center font-mono text-lg tracking-tighter sm:text-2xl">
             Create a code room to get started.
           </p>
