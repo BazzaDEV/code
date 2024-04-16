@@ -1,14 +1,20 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
+import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard'
 import { createRoom } from '@/lib/api/room'
+import { prettyHostname } from '@/lib/constants'
 import { sleep } from '@/lib/utils'
-import { redirect, useRouter } from 'next/navigation'
+import { Link } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { hostname } from 'os'
 import { useState } from 'react'
+import { toast } from 'sonner'
 import { useScramble } from 'use-scramble'
 
 export default function CreateRoomButton() {
   const router = useRouter()
+  const [, copy] = useCopyToClipboard()
   const [loading, setLoading] = useState<boolean>(false)
   const buttonText = !loading ? 'Create a new room' : 'Building your room...'
   const { ref } = useScramble({
@@ -22,6 +28,13 @@ export default function CreateRoomButton() {
     const room = await createRoom()
 
     setLoading(false)
+
+    copy(`${hostname}/${room.id}`)
+
+    toast.info('Room link is in your clipboard - share it!', {
+      description: `${prettyHostname}/${room.id}`,
+      icon: <Link className="size-4" />,
+    })
 
     router.push(`/${room.id}`)
   }

@@ -2,7 +2,9 @@
 
 import Copy from '@/components/copy'
 import LanguageSelector from '@/components/editor/language-selector'
+import { hostname, prettyHostname } from '@/lib/constants'
 import { useYjsStore } from '@/lib/stores/yjs-store'
+import { Link } from 'lucide-react'
 import { toast } from 'sonner'
 
 const CopyRoomLink = ({ roomId }: { roomId: string }) => (
@@ -12,10 +14,11 @@ const CopyRoomLink = ({ roomId }: { roomId: string }) => (
         <span className="text-muted-foreground">Room:</span> {roomId}
       </span>
     }
-    value={`${process.env.NEXT_PUBLIC_BASE_URL as string}/${roomId}`}
+    value={`${hostname}/${roomId}`}
     afterCopy={() =>
-      toast.success('Room link is in your clipboard, boss.', {
-        description: `Room ID: ${roomId}`,
+      toast.info('Room link is in your clipboard - share it!', {
+        description: `${prettyHostname}/${roomId}`,
+        icon: <Link className="size-4" />,
       })
     }
   />

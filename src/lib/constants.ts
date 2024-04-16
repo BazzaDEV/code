@@ -1,3 +1,5 @@
+import { getPrettyHostname } from './utils'
+
 export const languages = [
   { value: 'bat', name: 'Batch Script (Windows)' },
   { value: 'clojure', name: 'Clojure' },
@@ -53,3 +55,9 @@ export const languages = [
   { value: 'xml', name: 'XML' },
   { value: 'yaml', name: 'YAML' },
 ]
+
+export const hostname = new URL(
+  process.env.NEXT_PUBLIC_BASE_URL as string,
+).toString()
+
+export const prettyHostname = getPrettyHostname()

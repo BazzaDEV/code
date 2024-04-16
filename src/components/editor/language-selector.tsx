@@ -37,12 +37,17 @@ export default function LanguageSelector() {
           variant="ghost"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between font-mono tracking-tight"
+          className="justify-between font-mono tracking-tight"
         >
-          {language
-            ? languages.find((l) => l.value === language)?.name
-            : 'Select language...'}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <div className="inline-flex gap-2">
+            <span className="tracking-normal text-muted-foreground">
+              Language:
+            </span>
+            {language
+              ? languages.find((l) => l.value === language)?.name
+              : 'Select language...'}
+          </div>
+          <ChevronsUpDown className="ml-4 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-fit p-0">
