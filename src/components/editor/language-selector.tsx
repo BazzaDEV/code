@@ -40,7 +40,9 @@ export default function LanguageSelector() {
           className="justify-between font-mono tracking-tight"
         >
           <div className="inline-flex items-center gap-2">
-            <span className="text-sm text-muted-foreground">Language:</span>
+            <span className="hidden text-sm text-muted-foreground sm:inline">
+              Language:
+            </span>
             <span>
               {language
                 ? languages.find((l) => l.value === language)?.name
