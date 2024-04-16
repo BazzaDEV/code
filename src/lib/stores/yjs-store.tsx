@@ -10,6 +10,7 @@ type YjsState = {
 
 type YjsActions = {
   initialize: (roomId: string) => void
+  destroy: () => void
 }
 
 type YjsStore = YjsState & YjsActions
@@ -27,11 +28,20 @@ export const useYjsStore = create<YjsStore>((set, get) => ({
         signaling: ['wss://bazzadev-code-server.fly.dev'],
       })
 
-      console.log('Initialized!')
+      console.log('Initialized WebRTC provider in room', roomId)
 
       set({ provider: newProvider, roomId })
     } else {
       console.log('Already initialized - no need to repeat.')
     }
+  },
+  destroy: () => {
+    const { provider } = get()
+
+    provider?.destroy()
+
+    console.log('Tore down WebRTC provider.')
+
+    set({ provider: null })
   },
 }))

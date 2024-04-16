@@ -39,13 +39,13 @@ export default function LanguageSelector() {
           aria-expanded={open}
           className="justify-between font-mono tracking-tight"
         >
-          <div className="inline-flex gap-2">
-            <span className="tracking-normal text-muted-foreground">
-              Language:
+          <div className="inline-flex items-center gap-2">
+            <span className="text-sm text-muted-foreground">Language:</span>
+            <span>
+              {language
+                ? languages.find((l) => l.value === language)?.name
+                : 'Select language...'}
             </span>
-            {language
-              ? languages.find((l) => l.value === language)?.name
-              : 'Select language...'}
           </div>
           <ChevronsUpDown className="ml-4 h-4 w-4 shrink-0 opacity-50" />
         </Button>

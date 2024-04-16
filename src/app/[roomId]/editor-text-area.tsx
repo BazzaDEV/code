@@ -18,6 +18,8 @@ import { useYjsStore } from '@/lib/stores/yjs-store'
 import { toast } from 'sonner'
 import { languages } from '@/lib/constants'
 import { jetbrainsMono } from '@/lib/fonts'
+import { argv0 } from 'process'
+import { Code } from 'lucide-react'
 
 interface EditorProps {
   roomId: string
@@ -73,12 +75,14 @@ export default function EditorTextArea({ roomId }: EditorProps) {
   const monacoRef = useRef<Monaco | null>(null)
   const { theme } = useTheme()
   const [ref, { height }] = useMeasure()
-  const { provider, doc, initialize } = useYjsStore()
+  const { provider, doc, initialize, destroy } = useYjsStore()
   const { language, updateLanguage } = useEditorStore()
   const [editorMounted, setEditorMounted] = useState(false)
 
   useEffect(() => {
     initialize(roomId)
+
+    return () => destroy()
   }, [roomId])
 
   useEffect(() => {
@@ -114,13 +118,14 @@ export default function EditorTextArea({ roomId }: EditorProps) {
               languages.find((l) => l.value === remoteLanguageValue)?.name ||
               'Plain Text'
 
-            toast.info('Editor language was updated.', {
-              description: `New language: ${remoteLanguageName}`,
+            toast.info(`Editor language is now ${remoteLanguageName}.`, {
+              icon: <Code className="size-5" />,
             })
 
             console.log(
               `Remote language changed to ${remoteLanguageValue} - reflecting this on your editor.`,
             )
+
             updateLanguage(remoteLanguageValue)
           }
         })
@@ -135,7 +140,7 @@ export default function EditorTextArea({ roomId }: EditorProps) {
         awareness,
       )
     }
-  }, [editorMounted, provider, updateLanguage])
+  }, [editorMounted, provider])
 
   function setupEditor(
     editor: monaco.editor.IStandaloneCodeEditor,
