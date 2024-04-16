@@ -31,6 +31,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-use-measure": "^2.1.1",
+    "sonner": "^1.4.41",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7",
     "unique-names-generator": "^4.7.1",

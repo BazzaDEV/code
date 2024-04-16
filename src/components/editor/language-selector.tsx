@@ -20,10 +20,12 @@ import {
 } from '@/components/ui/popover'
 import { languages } from '@/lib/constants'
 import { useEditorStore } from '@/lib/stores/editor-store'
+import { useYjsStore } from '@/lib/stores/yjs-store'
 
 export default function LanguageSelector() {
   const [open, setOpen] = React.useState(false)
   const { language, updateLanguage } = useEditorStore()
+  const { doc } = useYjsStore()
 
   return (
     <Popover
@@ -55,6 +57,10 @@ export default function LanguageSelector() {
                   value={l.value}
                   onSelect={(currentValue) => {
                     updateLanguage(currentValue)
+
+                    const settings = doc.getMap('settings')
+                    settings.set('language', currentValue)
+
                     setOpen(false)
                   }}
                 >

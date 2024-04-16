@@ -2,7 +2,7 @@
 'use client'
 
 import { Monaco, default as MonacoEditor } from '@monaco-editor/react'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import * as Y from 'yjs'
 import { WebrtcProvider } from 'y-webrtc'
 import { MonacoBinding } from 'y-monaco'
@@ -14,6 +14,9 @@ import * as monaco from 'monaco-editor'
 import { colors } from '@/lib/utils'
 import useMeasure from 'react-use-measure'
 import { useEditorStore } from '@/lib/stores/editor-store'
+import { useYjsStore } from '@/lib/stores/yjs-store'
+import { toast } from 'sonner'
+import { languages } from '@/lib/constants'
 
 interface EditorProps {
   roomId: string
@@ -69,9 +72,71 @@ export default function EditorTextArea({ roomId }: EditorProps) {
   const monacoRef = useRef<Monaco | null>(null)
   const { theme } = useTheme()
   const [ref, { height }] = useMeasure()
-  const { language } = useEditorStore()
+  const { provider, doc, initialize } = useYjsStore()
+  const { language, updateLanguage } = useEditorStore()
+  const [editorMounted, setEditorMounted] = useState(false)
 
-  function handleEditorDidMount(
+  useEffect(() => {
+    initialize(roomId)
+  }, [roomId])
+
+  useEffect(() => {
+    if (editorMounted && provider) {
+      const username = uniqueNamesGenerator({ dictionaries: [animals] })
+
+      let awareness = provider.awareness
+
+      awareness.on('change', () => {
+        updateCursorStyles(awareness, editorRef.current)
+      })
+
+      awareness.setLocalStateField('user', {
+        name: username,
+        color: randomColor(),
+      })
+
+      const remoteSettings = doc.getMap('settings')
+      const remoteLanguage = remoteSettings.get('language')
+
+      if (!remoteLanguage) {
+        remoteSettings.set('language', 'plaintext')
+      } else {
+        updateLanguage(remoteLanguage)
+      }
+
+      const settings = doc.getMap('settings')
+      settings.observe((event) => {
+        event.keysChanged.forEach((key) => {
+          if (key === 'language') {
+            const remoteLanguageValue = settings.get('language')
+            const remoteLanguageName =
+              languages.find((l) => l.value === remoteLanguageValue)?.name ||
+              'Plain Text'
+
+            toast.info('Editor language was updated.', {
+              description: `New language: ${remoteLanguageName}`,
+            })
+
+            console.log(
+              `Remote language changed to ${remoteLanguageValue} - reflecting this on your editor.`,
+            )
+            updateLanguage(remoteLanguageValue)
+          }
+        })
+      })
+
+      const type = doc.getText('monaco')
+
+      const binding = new MonacoBinding(
+        type,
+        editorRef.current.getModel()!,
+        new Set([editorRef.current]),
+        awareness,
+      )
+    }
+  }, [editorMounted, provider, updateLanguage])
+
+  function setupEditor(
     editor: monaco.editor.IStandaloneCodeEditor,
     monaco: Monaco,
   ) {
@@ -83,33 +148,7 @@ export default function EditorTextArea({ roomId }: EditorProps) {
 
     monacoRef.current.editor.setTheme(theme ?? 'dark')
 
-    const doc = new Y.Doc()
-
-    const provider = new WebrtcProvider(roomId, doc, {
-      signaling: ['wss://bazzadev-code-server.fly.dev'],
-    })
-
-    const username = uniqueNamesGenerator({ dictionaries: [animals] })
-
-    let awareness = provider.awareness
-
-    awareness.on('change', () => {
-      updateCursorStyles(awareness, editorRef.current)
-    })
-
-    awareness.setLocalStateField('user', {
-      name: username,
-      color: randomColor(),
-    })
-
-    const type = doc.getText('monaco')
-
-    const binding = new MonacoBinding(
-      type,
-      editorRef.current.getModel()!,
-      new Set([editorRef.current]),
-      awareness,
-    )
+    setEditorMounted(true)
   }
 
   return (
@@ -123,7 +162,7 @@ export default function EditorTextArea({ roomId }: EditorProps) {
         theme={theme}
         language={language}
         value=""
-        onMount={handleEditorDidMount}
+        onMount={setupEditor}
         options={{
           padding: {
             top: 10,

@@ -4,6 +4,8 @@ import { JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/providers/theme-provider'
 import { ModeToggle } from '@/components/mode-toggle'
+import BreakpointHelper from '@/components/breakpoint-helper'
+import { Toaster } from '@/components/ui/sonner'
 
 const inter = Inter({ subsets: ['latin'] })
 const jetbrainsMono = JetBrains_Mono({
@@ -35,9 +37,12 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
-          {/* <div className="fixed bottom-0 left-0 m-4"> */}
-          {/*   <ModeToggle /> */}
-          {/* </div> */}
+          {process.env.NODE_ENV === 'development' && (
+            <div className="absolute bottom-0 left-0 m-4">
+              <BreakpointHelper />
+            </div>
+          )}
+          <Toaster richColors />
         </ThemeProvider>
       </body>
     </html>
