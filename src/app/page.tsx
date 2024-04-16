@@ -40,11 +40,11 @@ export default function Home() {
     <main className="mx-auto flex h-screen max-w-screen-xl flex-col items-center bg-zinc-100 dark:bg-zinc-950">
       <div className="flex w-full flex-1 flex-col items-center justify-center gap-12 p-4">
         <div className="flex flex-col items-center gap-12">
-          <Terminal className="size-24 sm:size-64" />
+          <Terminal className="size-24 text-zinc-800 sm:size-64" />
           <h1
             className={cn(
               'h-12 w-full p-1 text-center text-4xl font-bold tracking-tighter sm:h-24 sm:text-7xl',
-              'bg-gradient-to-t from-purple-600 via-purple-500 to-purple-600 bg-clip-text text-transparent',
+              'bg-gradient-to-t from-zinc-50 to-zinc-100 bg-clip-text text-transparent',
             )}
           >
             Ready to <span ref={titleRef} />
