@@ -12,7 +12,9 @@ const CopyRoomLink = ({ roomId }: { roomId: string }) => (
   <Copy
     label={
       <span className="font-mono">
-        <span className="hidden text-muted-foreground sm:inline">Room:</span>{' '}
+        <span className="hidden text-muted-foreground sm:inline">
+          {prettyHostname}/
+        </span>
         {roomId}
       </span>
     }
