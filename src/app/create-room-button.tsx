@@ -41,11 +41,11 @@ export default function CreateRoomButton() {
   return (
     <Button
       size="lg"
-      className="min-w-[350px] font-mono text-xl font-medium tracking-tight"
+      className="inline-flex min-w-[275px] items-center font-mono text-base font-medium tracking-tight sm:min-w-[350px] sm:text-xl"
       disabled={loading}
       onClick={handleClick}
     >
-      {!loading && <Plus className="mr-2" />}
+      {!loading && <Plus className="mr-2 size-4 sm:size-6" />}
       <span ref={ref} />
     </Button>
   )
