@@ -44,7 +44,7 @@ export default function Home() {
           <h1
             className={cn(
               'h-12 w-full p-1 text-center text-4xl font-bold tracking-tighter sm:h-24 sm:text-7xl',
-              'bg-gradient-to-r from-green-400 via-green-300/90 to-green-400 bg-clip-text text-transparent',
+              'bg-gradient-to-t from-purple-600 via-purple-500 to-purple-600 bg-clip-text text-transparent',
             )}
           >
             Ready to <span ref={titleRef} />
