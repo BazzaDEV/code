@@ -27,7 +27,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div
-            className={`${inter.className} ${jetbrainsMono.variable} min-h-screen`}
+            className={`${inter.className} ${jetbrainsMono.variable} min-h-screen bg-background`}
           >
             {children}
             {process.env.NODE_ENV === 'development' && (
