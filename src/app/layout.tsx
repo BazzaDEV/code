@@ -20,7 +20,7 @@ export default function RootLayout({
       lang="en"
       suppressHydrationWarning
     >
-      <body>
+      <body className="min-h-screen bg-background">
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
