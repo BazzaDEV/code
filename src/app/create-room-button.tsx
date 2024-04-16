@@ -41,7 +41,7 @@ export default function CreateRoomButton() {
   return (
     <Button
       size="lg"
-      className="inline-flex min-w-[275px] items-center font-mono text-base font-medium tracking-tight shadow-lg shadow-purple-500 sm:min-w-[350px] sm:text-xl"
+      className="inline-flex min-w-[275px] items-center font-mono text-base font-medium tracking-tight shadow-md shadow-purple-500 transition-shadow duration-300 hover:shadow-lg hover:shadow-purple-500 sm:min-w-[350px] sm:text-xl"
       disabled={loading}
       onClick={handleClick}
     >
