@@ -1,6 +1,7 @@
 'use client'
 
 import Copy from '@/components/copy'
+import ActiveUsers from '@/components/editor/active-users'
 import LanguageSelector from '@/components/editor/language-selector'
 import { hostname, prettyHostname } from '@/lib/constants'
 import { useYjsStore } from '@/lib/stores/yjs-store'
@@ -27,8 +28,11 @@ const CopyRoomLink = ({ roomId }: { roomId: string }) => (
 export default function EditorControls() {
   const { roomId } = useYjsStore()
   return (
-    <div className="flex justify-between gap-4 bg-zinc-950 p-2">
-      <LanguageSelector />
+    <div className="flex justify-between gap-4 bg-zinc-950 p-2 px-4">
+      <div className="inline-flex items-center gap-2">
+        <ActiveUsers />
+        <LanguageSelector />
+      </div>
       <div>
         <CopyRoomLink roomId={roomId!} />
       </div>
