@@ -17,6 +17,7 @@ import { useEditorStore } from '@/lib/stores/editor-store'
 import { useYjsStore } from '@/lib/stores/yjs-store'
 import { toast } from 'sonner'
 import { languages } from '@/lib/constants'
+import { jetbrainsMono } from '@/lib/fonts'
 
 interface EditorProps {
   roomId: string
@@ -169,7 +170,7 @@ export default function EditorTextArea({ roomId }: EditorProps) {
             bottom: 10,
           },
           fontSize: 16,
-          fontFamily: 'JetBrains Mono',
+          fontFamily: `${jetbrainsMono.style.fontFamily}`,
           fontLigatures: true,
           minimap: {
             enabled: false,
