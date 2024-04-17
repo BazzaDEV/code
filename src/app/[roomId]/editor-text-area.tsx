@@ -2,13 +2,10 @@
 'use client'
 
 import { Monaco, default as MonacoEditor } from '@monaco-editor/react'
-import { useEffect, useRef, useState } from 'react'
-import * as Y from 'yjs'
-import { WebrtcProvider } from 'y-webrtc'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { MonacoBinding } from 'y-monaco'
 import { uniqueNamesGenerator, animals } from 'unique-names-generator'
 import randomColor from 'randomcolor'
-import './styles.css'
 import { useTheme } from 'next-themes'
 import * as monaco from 'monaco-editor'
 import { colors } from '@/lib/utils'
@@ -18,16 +15,19 @@ import { useYjsStore } from '@/lib/stores/yjs-store'
 import { toast } from 'sonner'
 import { languages } from '@/lib/constants'
 import { jetbrainsMono } from '@/lib/fonts'
-import { argv0 } from 'process'
 import { Code } from 'lucide-react'
+import './styles.css'
 
 interface EditorProps {
   roomId: string
 }
 
-function updateCursorStyles(awareness, editor) {
-  // Create or update a style element specifically for cursor styles
+function updateCursorStyles(
+  awareness,
+  editor: monaco.editor.IStandaloneCodeEditor,
+) {
   let styleElement = document.getElementById('cursor-styles')
+
   if (!styleElement) {
     styleElement = document.createElement('style')
     styleElement.id = 'cursor-styles'
@@ -40,13 +40,36 @@ function updateCursorStyles(awareness, editor) {
   }
 
   awareness.getStates().forEach((state, clientId) => {
+    // console.log(awareness.getStates())
+
     if (state.user) {
       const color = state.user.color || randomColor()
       const cursorColorStyle = `.yRemoteSelectionHead-${clientId}, .yRemoteSelectionHead-${clientId}::after { border-color: ${color}; }`
-      const selectionColorStyle = `.yRemoteSelection-${clientId} { background-color: ${color}88; }` // Slightly transparent
+      const selectionColorStyle = `.yRemoteSelection-${clientId} { background-color: ${color}88; }`
+      const usernameTagStyle = `.yRemoteSelectionHead-${clientId}::before { 
+                content: '${state.user.name}';
+                position: absolute;
+                left: 5px; 
+                top: -20px;
+                white-space: nowrap;
+                background-color: ${color};
+                color: white;
+                padding: 2px 8px;
+                border-radius: 4px;
+                font-size: 12px;
+                visibility: visible;
+                opacity: 1;
+                transition: opacity 0.3s;
+            }`
+      // const usernameTagHoverStyle = `.yRemoteSelectionHead-${clientId}:hover::before {
+      //           visibility: visible;
+      //           opacity: 1;
+      //       }`
 
       styleSheet.insertRule(cursorColorStyle, styleSheet.cssRules.length)
       styleSheet.insertRule(selectionColorStyle, styleSheet.cssRules.length)
+      styleSheet.insertRule(usernameTagStyle, styleSheet.cssRules.length)
+      // styleSheet.insertRule(usernameTagHoverStyle, styleSheet.cssRules.length)
     }
   })
 }
@@ -140,7 +163,7 @@ export default function EditorTextArea({ roomId }: EditorProps) {
         awareness,
       )
     }
-  }, [editorMounted, provider])
+  }, [editorMounted, provider, updateLanguage])
 
   function setupEditor(
     editor: monaco.editor.IStandaloneCodeEditor,
