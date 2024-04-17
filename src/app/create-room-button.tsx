@@ -5,7 +5,7 @@ import { useCopyToClipboard } from '@/hooks/use-copy-to-clipboard'
 import { createRoom } from '@/lib/api/room'
 import { hostname, prettyHostname } from '@/lib/constants'
 import { sleep } from '@/lib/utils'
-import { Link, Plus } from 'lucide-react'
+import { CheckCircle, Link, Plus } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { toast } from 'sonner'
@@ -23,25 +23,33 @@ export default function CreateRoomButton() {
   async function handleClick() {
     setLoading(true)
 
-    await sleep(3000)
     const room = await createRoom()
+    const roomUrl = `${prettyHostname}/${room.id}`
 
-    setLoading(false)
-
-    copy(`${hostname}/${room.id}`)
-
-    toast.info('Room link is in your clipboard - share it!', {
-      description: `${prettyHostname}/${room.id}`,
+    toast.info('Room created!', {
+      description: roomUrl,
       icon: <Link className="size-4" />,
+      action: {
+        label: 'Copy Link',
+        onClick: () => {
+          copy(`${hostname}/${room.id}`)
+          toast.success('Copied room link - share it!', {
+            description: roomUrl,
+            icon: <CheckCircle className="size-4" />,
+          })
+        },
+      },
     })
 
     router.push(`/${room.id}`)
+
+    setLoading(false)
   }
 
   return (
     <Button
       size="lg"
-      className="inline-flex min-w-[275px] items-center font-mono text-base font-medium tracking-tight shadow-md shadow-purple-500 transition-shadow duration-300 hover:shadow-lg hover:shadow-purple-500 sm:min-w-[350px] sm:text-xl"
+      className="inline-flex min-w-[275px] items-center bg-gradient-to-t from-zinc-50 to-zinc-200 font-mono text-base font-medium tracking-tight sm:min-w-[350px] sm:text-xl"
       disabled={loading}
       onClick={handleClick}
     >

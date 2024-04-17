@@ -5,7 +5,7 @@ import ActiveUsers from '@/components/editor/active-users'
 import LanguageSelector from '@/components/editor/language-selector'
 import { hostname, prettyHostname } from '@/lib/constants'
 import { useYjsStore } from '@/lib/stores/yjs-store'
-import { Link } from 'lucide-react'
+import { Check, CheckCircle, Link } from 'lucide-react'
 import { toast } from 'sonner'
 
 const CopyRoomLink = ({ roomId }: { roomId: string }) => (
@@ -20,9 +20,9 @@ const CopyRoomLink = ({ roomId }: { roomId: string }) => (
     }
     value={`${hostname}/${roomId}`}
     afterCopy={() =>
-      toast.info('Room link is in your clipboard - share it!', {
+      toast.success('Copied room link - share it!', {
         description: `${prettyHostname}/${roomId}`,
-        icon: <Link className="size-4" />,
+        icon: <CheckCircle className="size-4" />,
       })
     }
   />
