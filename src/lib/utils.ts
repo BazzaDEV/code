@@ -12,9 +12,9 @@ export function sleep(ms: number) {
 import resolveConfig from 'tailwindcss/resolveConfig'
 import tailwindConfig from '@/../tailwind.config'
 
-const fullConfig = resolveConfig(tailwindConfig)
+export const tw = resolveConfig(tailwindConfig).theme
 
-export const colors = fullConfig.theme.colors
+export const colors = tw.colors
 
 export function getPrettyHostname() {
   const url = new URL(process.env.NEXT_PUBLIC_BASE_URL as string)

@@ -8,7 +8,7 @@ import { uniqueNamesGenerator, animals } from 'unique-names-generator'
 import randomColor from 'randomcolor'
 import { useTheme } from 'next-themes'
 import * as monaco from 'monaco-editor'
-import { colors } from '@/lib/utils'
+import { colors, tw } from '@/lib/utils'
 import useMeasure from 'react-use-measure'
 import { useEditorStore } from '@/lib/stores/editor-store'
 import { useYjsStore } from '@/lib/stores/yjs-store'
@@ -54,30 +54,23 @@ export function updateCursorVisibility(
     .yRemoteSelectionHead-${clientId}::before { 
       content: '${username}';
       position: absolute;
-      left: 5px; 
-      top: -20px;
+      left: -2px; 
+      top: -27px;
       white-space: nowrap;
       background-color: ${color};
       color: white;
-      padding: 2px 8px;
+      padding: ${tw.padding['0.5']} ${tw.padding['1.5']};
       border-radius: 4px;
-      font-size: 12px;
+      font-size: ${tw.fontSize['xs'][0]};
       visibility: ${visibility};
       opacity: ${opacity};
       transition: opacity 0.3s, visibility 0.3s ease-in-out;
     }
   `
-  // const usernameTagHoverStyle = `
-  //   .yRemoteSelectionHead-${clientId}:hover::before {
-  //     visibility: visible;
-  //     opacity: 1;
-  //   }
-  // `
 
   styleSheet.insertRule(cursorColorStyle, styleSheet.cssRules.length)
   styleSheet.insertRule(selectionColorStyle, styleSheet.cssRules.length)
   styleSheet.insertRule(usernameTagStyle, styleSheet.cssRules.length)
-  // styleSheet.insertRule(usernameTagHoverStyle, styleSheet.cssRules.length)
 }
 
 export function clearCursorStyles() {
@@ -262,12 +255,14 @@ export default function EditorTextArea({ roomId }: EditorProps) {
         awareness,
       )
     }
-  }, [editorMounted, provider, updateLanguage, setUserActive, setUserIdle, doc])
+  }, [editorMounted, provider, updateLanguage, setUserActive, setUserIdle])
 
   function setupEditor(
     editor: monaco.editor.IStandaloneCodeEditor,
     monaco: Monaco,
   ) {
+    editor.focus()
+
     editorRef.current = editor
     monacoRef.current = monaco
 
@@ -293,8 +288,8 @@ export default function EditorTextArea({ roomId }: EditorProps) {
         onMount={setupEditor}
         options={{
           padding: {
-            top: 10,
-            bottom: 10,
+            top: 30,
+            bottom: 30,
           },
           fontSize: 16,
           fontFamily: `${jetbrainsMono.style.fontFamily}`,

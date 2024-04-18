@@ -16,7 +16,6 @@
   position: absolute;
   content: ' ';
   border: 3px solid orange;
-  border-radius: 4px;
-  left: -4px;
+  left: -2px;
   top: -5px;
 }
