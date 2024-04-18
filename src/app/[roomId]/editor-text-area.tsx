@@ -2,7 +2,7 @@
 'use client'
 
 import { Monaco, default as MonacoEditor } from '@monaco-editor/react'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { MonacoBinding } from 'y-monaco'
 import { uniqueNamesGenerator, animals } from 'unique-names-generator'
 import randomColor from 'randomcolor'
@@ -18,16 +18,79 @@ import { jetbrainsMono } from '@/lib/fonts'
 import { Code } from 'lucide-react'
 import './styles.css'
 
+export function getCursorStylesSheet() {
+  let styleElement = document.getElementById('cursor-styles')
+
+  if (!styleElement) {
+    styleElement = document.createElement('style')
+    styleElement.id = 'cursor-styles'
+    document.head.appendChild(styleElement)
+  }
+
+  let styleSheet = styleElement.sheet
+
+  return styleSheet
+}
+
 interface EditorProps {
   roomId: string
 }
 
-function updateCursorStyles(
-  awareness,
-  editor: monaco.editor.IStandaloneCodeEditor,
+export function updateCursorVisibility(
+  clientId: number,
+  state,
+  isVisible: boolean,
 ) {
-  let styleElement = document.getElementById('cursor-styles')
+  const styleSheet = getCursorStylesSheet()
 
+  const visibility = isVisible ? 'visible' : 'hidden'
+  const opacity = isVisible ? 1 : 0
+  const username = state.user?.name || 'Anonymous'
+  const color = state.user?.color || randomColor()
+
+  const cursorColorStyle = `.yRemoteSelectionHead-${clientId}, .yRemoteSelectionHead-${clientId}::after { border-color: ${color}; }`
+  const selectionColorStyle = `.yRemoteSelection-${clientId} { background-color: ${color}88; }`
+  const usernameTagStyle = `
+    .yRemoteSelectionHead-${clientId}::before { 
+      content: '${username}';
+      position: absolute;
+      left: 5px; 
+      top: -20px;
+      white-space: nowrap;
+      background-color: ${color};
+      color: white;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      visibility: ${visibility};
+      opacity: ${opacity};
+      transition: opacity 0.3s, visibility 0.3s ease-in-out;
+    }
+  `
+  // const usernameTagHoverStyle = `
+  //   .yRemoteSelectionHead-${clientId}:hover::before {
+  //     visibility: visible;
+  //     opacity: 1;
+  //   }
+  // `
+
+  styleSheet.insertRule(cursorColorStyle, styleSheet.cssRules.length)
+  styleSheet.insertRule(selectionColorStyle, styleSheet.cssRules.length)
+  styleSheet.insertRule(usernameTagStyle, styleSheet.cssRules.length)
+  // styleSheet.insertRule(usernameTagHoverStyle, styleSheet.cssRules.length)
+}
+
+export function clearCursorStyles() {
+  const styleSheet = getCursorStylesSheet()
+
+  while (styleSheet.cssRules.length > 0) {
+    styleSheet.deleteRule(0)
+  }
+}
+
+function initialCursorStyles(awareness, editor) {
+  // Create or update a style element specifically for cursor styles
+  let styleElement = document.getElementById('cursor-styles')
   if (!styleElement) {
     styleElement = document.createElement('style')
     styleElement.id = 'cursor-styles'
@@ -40,36 +103,13 @@ function updateCursorStyles(
   }
 
   awareness.getStates().forEach((state, clientId) => {
-    // console.log(awareness.getStates())
-
     if (state.user) {
       const color = state.user.color || randomColor()
       const cursorColorStyle = `.yRemoteSelectionHead-${clientId}, .yRemoteSelectionHead-${clientId}::after { border-color: ${color}; }`
-      const selectionColorStyle = `.yRemoteSelection-${clientId} { background-color: ${color}88; }`
-      const usernameTagStyle = `.yRemoteSelectionHead-${clientId}::before { 
-                content: '${state.user.name}';
-                position: absolute;
-                left: 5px; 
-                top: -20px;
-                white-space: nowrap;
-                background-color: ${color};
-                color: white;
-                padding: 2px 8px;
-                border-radius: 4px;
-                font-size: 12px;
-                visibility: visible;
-                opacity: 1;
-                transition: opacity 0.3s;
-            }`
-      // const usernameTagHoverStyle = `.yRemoteSelectionHead-${clientId}:hover::before {
-      //           visibility: visible;
-      //           opacity: 1;
-      //       }`
+      const selectionColorStyle = `.yRemoteSelection-${clientId} { background-color: ${color}88; }` // Slightly transparent
 
       styleSheet.insertRule(cursorColorStyle, styleSheet.cssRules.length)
       styleSheet.insertRule(selectionColorStyle, styleSheet.cssRules.length)
-      styleSheet.insertRule(usernameTagStyle, styleSheet.cssRules.length)
-      // styleSheet.insertRule(usernameTagHoverStyle, styleSheet.cssRules.length)
     }
   })
 }
@@ -98,15 +138,33 @@ export default function EditorTextArea({ roomId }: EditorProps) {
   const monacoRef = useRef<Monaco | null>(null)
   const { theme } = useTheme()
   const [ref, { height }] = useMeasure()
-  const { provider, doc, initialize, destroy } = useYjsStore()
+  const {
+    provider,
+    doc,
+    activeUsers,
+    setUserActive,
+    setUserIdle,
+    cleanupIdleUsers,
+    initialize,
+    destroy,
+  } = useYjsStore()
   const { language, updateLanguage } = useEditorStore()
   const [editorMounted, setEditorMounted] = useState(false)
 
   useEffect(() => {
     initialize(roomId)
 
-    return () => destroy()
-  }, [roomId])
+    const intervalId = setInterval(cleanupIdleUsers, 3000)
+
+    return () => {
+      clearInterval(intervalId)
+      destroy()
+    }
+  }, [roomId, cleanupIdleUsers])
+
+  useEffect(() => {
+    // console.log('Updated active users:', activeUsers)
+  }, [activeUsers])
 
   useEffect(() => {
     if (editorMounted && provider) {
@@ -114,8 +172,49 @@ export default function EditorTextArea({ roomId }: EditorProps) {
 
       let awareness = provider.awareness
 
-      awareness.on('change', () => {
-        updateCursorStyles(awareness, editorRef.current)
+      awareness.getStates().forEach((state, clientId) => {
+        // console.log(`Setting ${clientId} to ACTIVE`)
+        setUserActive(clientId)
+      })
+
+      awareness.on('change', ({ added, updated, removed }) => {
+        clearCursorStyles()
+
+        const styleSheet = getCursorStylesSheet()
+
+        const changedClients = new Set([...added, ...updated, ...removed])
+
+        awareness.getStates().forEach((state, clientId) => {
+          if (state.user && !changedClients.has(clientId)) {
+            const color = state.user.color || randomColor()
+            const cursorColorStyle = `.yRemoteSelectionHead-${clientId}, .yRemoteSelectionHead-${clientId}::after { border-color: ${color}; }`
+            const selectionColorStyle = `.yRemoteSelection-${clientId} { background-color: ${color}88; }` // Slightly transparent
+
+            styleSheet.insertRule(cursorColorStyle, styleSheet.cssRules.length)
+            styleSheet.insertRule(
+              selectionColorStyle,
+              styleSheet.cssRules.length,
+            )
+          }
+        })
+
+        console.log('CHANGED:', changedClients)
+
+        added.forEach((clientId) => {
+          const state = awareness.getStates().get(clientId)
+
+          setUserActive(clientId)
+          updateCursorVisibility(clientId, state, true)
+        })
+        updated.forEach((clientId) => {
+          const state = awareness.getStates().get(clientId)
+
+          setUserActive(clientId)
+          updateCursorVisibility(clientId, state, true)
+        })
+        removed.forEach((clientId) => {
+          setUserIdle(clientId)
+        })
       })
 
       awareness.setLocalStateField('user', {
@@ -163,7 +262,7 @@ export default function EditorTextArea({ roomId }: EditorProps) {
         awareness,
       )
     }
-  }, [editorMounted, provider, updateLanguage])
+  }, [editorMounted, provider, updateLanguage, setUserActive, setUserIdle, doc])
 
   function setupEditor(
     editor: monaco.editor.IStandaloneCodeEditor,
