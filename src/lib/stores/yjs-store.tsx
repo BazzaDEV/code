@@ -1,14 +1,17 @@
 import { create } from 'zustand'
 import * as Y from 'yjs'
 import { WebrtcProvider } from 'y-webrtc'
+import { IndexeddbPersistence } from 'y-indexeddb'
 import {
   clearCursorStyles,
   getCursorStylesSheet,
   updateCursorVisibility,
 } from '@/app/[roomId]/editor-text-area'
+import { toast } from 'sonner'
 
 type YjsState = {
   doc: Y.Doc
+  offlineProvider: IndexeddbPersistence | null
   provider: WebrtcProvider | null
   roomId: string | null
   activeUsers: Map<number, number>
@@ -28,9 +31,24 @@ export const useYjsStore = create<YjsStore>((set, get) => ({
   doc: new Y.Doc(),
   roomId: null,
   activeUsers: new Map<number, number>(),
+  offlineProvider: null,
   provider: null,
   initialize: (roomId) => {
-    const { doc, provider } = get()
+    const { doc, provider, offlineProvider } = get()
+
+    if (!offlineProvider) {
+      const newOfflineProvider = new IndexeddbPersistence(roomId, doc)
+      newOfflineProvider.on(
+        'synced',
+        (iDbPersistence: IndexeddbPersistence) => {
+          console.log(
+            `Content restored for room ${iDbPersistence.name} from local cache.`,
+          )
+        },
+      )
+
+      set({ offlineProvider: newOfflineProvider })
+    }
 
     if (!provider) {
       // Only create a new provider if one does not already exist
@@ -52,7 +70,7 @@ export const useYjsStore = create<YjsStore>((set, get) => ({
   setUserActive: (clientId) => {
     const { activeUsers } = get()
 
-    console.log(`Setting ${clientId} active`)
+    // console.log(`Setting ${clientId} active`)
 
     activeUsers.set(clientId, Date.now())
 
@@ -61,7 +79,7 @@ export const useYjsStore = create<YjsStore>((set, get) => ({
   setUserIdle: (clientId) => {
     const { activeUsers } = get()
 
-    console.log(`Setting ${clientId} idle`)
+    // console.log(`Setting ${clientId} idle`)
 
     activeUsers.delete(clientId)
 
@@ -70,7 +88,7 @@ export const useYjsStore = create<YjsStore>((set, get) => ({
   cleanupIdleUsers: () => {
     const { activeUsers, provider } = get()
 
-    console.log('Cleaning up idle users...')
+    // console.log('Cleaning up idle users...')
 
     const allUsers = [...activeUsers]
     const allUsersSet = new Set([...allUsers.keys()])
@@ -107,12 +125,21 @@ export const useYjsStore = create<YjsStore>((set, get) => ({
     set({ activeUsers: new Map<number, number>(onlyActiveUsers) })
   },
   destroy: () => {
-    const { provider } = get()
+    const { doc, provider, offlineProvider } = get()
 
+    doc.destroy()
     provider?.destroy()
+    offlineProvider?.destroy()
 
+    console.log('Destroyed Yjs document.')
     console.log('Tore down WebRTC provider.')
+    console.log('Tore down IndexedDB provider.')
 
-    set({ provider: null, activeUsers: new Map<number, number>() })
+    set({
+      doc: new Y.Doc(),
+      provider: null,
+      offlineProvider: null,
+      activeUsers: new Map<number, number>(),
+    })
   },
 }))

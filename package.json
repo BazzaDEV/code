@@ -38,6 +38,7 @@
     "tailwindcss-animate": "^1.0.7",
     "unique-names-generator": "^4.7.1",
     "use-scramble": "^2.2.15",
+    "y-indexeddb": "^9.0.12",
     "y-monaco": "^0.1.5",
     "y-webrtc": "^10.3.0",
     "yjs": "^13.6.14",

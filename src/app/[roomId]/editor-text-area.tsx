@@ -191,7 +191,7 @@ export default function EditorTextArea({ roomId }: EditorProps) {
           }
         })
 
-        console.log('CHANGED:', changedClients)
+        // console.log('CHANGED:', changedClients)
 
         added.forEach((clientId) => {
           const state = awareness.getStates().get(clientId)
