@@ -24,7 +24,7 @@ export default function Copy({ label, value, afterCopy }: Props) {
   }
   return (
     <Button
-      variant="secondary"
+      variant="outline"
       className="inline-flex gap-4"
       onClick={handleCopy}
     >

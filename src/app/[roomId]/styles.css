@@ -4,18 +4,18 @@
 
 .yRemoteSelectionHead {
   position: absolute;
-  border-left: orange solid 2px;
-  border-top: orange solid 2px;
-  border-bottom: orange solid 2px;
+  border-left: solid 2px orange;
+  border-top: solid 2px orange;
+  border-bottom: solid 2px orange;
   height: 100%;
   box-sizing: border-box;
+  cursor: pointer; /* Optional: changes cursor to pointer to indicate interactiveness */
 }
 
 .yRemoteSelectionHead::after {
   position: absolute;
   content: ' ';
   border: 3px solid orange;
-  border-radius: 4px;
-  left: -4px;
+  left: -2px;
   top: -5px;
 }
