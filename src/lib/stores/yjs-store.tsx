@@ -62,6 +62,20 @@ export const useYjsStore = create<YjsStore>((set, get) => ({
       console.log('Client ID:', newProvider.awareness.clientID)
       console.log('=============================')
 
+      newProvider.awareness.on('change', (updates: any, origin: any) => {
+        console.log(updates)
+        updates.added.forEach((clientId: number) => {
+          console.log('Added:', clientId)
+          const state = newProvider.awareness.getStates().get(clientId)
+          toast.info(`${state?.user.name} has joined the room.`)
+        })
+
+        updates.removed.forEach((clientId: number) => {
+          console.log('Removed:', clientId)
+          toast.info(`A user has left the room.`)
+        })
+      })
+
       set({ provider: newProvider, roomId })
     } else {
       console.log('Already initialized - no need to repeat.')
