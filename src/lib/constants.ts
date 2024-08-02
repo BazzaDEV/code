@@ -56,8 +56,9 @@ export const languages = [
   { value: 'yaml', name: 'YAML' },
 ]
 
-export const hostname = new URL(
-  process.env.NEXT_PUBLIC_BASE_URL as string,
-).toString()
+export const hostname = new URL(process.env.NEXT_PUBLIC_BASE_URL as string)
+  .toString()
+  // Remove trailing slash(es)
+  .replace(/\/+$/, '')
 
 export const prettyHostname = getPrettyHostname()
