@@ -10,10 +10,6 @@
     "build:vercel": "prisma generate && prisma migrate deploy && next build",
     "prepare": "husky"
   },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": "eslint",
-    "*.{js,jsx,ts,tsx,css,md,json}": "prettier --write"
-  },
   "prisma": {
     "schema": "src/prisma/schema.prisma"
   },
