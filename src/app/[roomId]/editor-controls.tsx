@@ -5,7 +5,7 @@ import ActiveUsers from '@/components/editor/active-users'
 import LanguageSelector from '@/components/editor/language-selector'
 import { hostname, prettyHostname } from '@/lib/constants'
 import { useYjsStore } from '@/lib/stores/yjs-store'
-import { Check, CheckCircle, Link } from 'lucide-react'
+import { CheckCircle } from 'lucide-react'
 import { toast } from 'sonner'
 
 const CopyRoomLink = ({ roomId }: { roomId: string }) => (
