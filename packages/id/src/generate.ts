@@ -1,9 +1,9 @@
 import { v7 as uuidv7 } from 'uuid'
 
 const prefixes = {
-  user: 'u',
-  session: 's',
-  oauth: 'oa',
+  user: 'user_',
+  session: 'session_',
+  oauth: 'oauth_',
 }
 
 export function newId(prefix: keyof typeof prefixes): string {

@@ -1,12 +1,12 @@
 {
-  "name": "id",
+  "name": "@avelin/id",
   "version": "0.0.0",
   "private": true,
-  "scripts": {
-    "dev": "echo 'Add dev script here'",
-    "build": "echo 'Add build script here'",
-    "test": "echo 'Add test script here'",
-    "lint": "echo 'Add lint script here'"
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": "./src/index.ts"
   },
   "devDependencies": {
     "@avelin/eslint-config": "workspace:*",
