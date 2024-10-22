@@ -7,6 +7,8 @@
     "hono": "^4.6.6"
   },
   "devDependencies": {
+    "@avelin/eslint-config": "workspace:*",
+    "@avelin/prettier-config": "workspace:*",
     "@types/bun": "latest"
   }
 }
