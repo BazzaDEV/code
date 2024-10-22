@@ -8,12 +8,14 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
+    "@avelin/eslint-config": "workspace:*",
+    "@avelin/prettier-config": "workspace:*",
     "prettier": "^3.2.5",
     "turbo": "^2.2.3",
     "typescript": "^5.4.5"
   },
   "packageManager": "pnpm@8.15.6",
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   }
 }

@@ -1,0 +1,23 @@
+{
+  "name": "@avelin/database",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "devDependencies": {
+    "@avelin/eslint-config": "workspace:*",
+    "@avelin/prettier-config": "workspace:*",
+    "@avelin/typescript-config": "workspace:*",
+    "drizzle-kit": "^0.26.2"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.1",
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.35.3"
+  }
+}
