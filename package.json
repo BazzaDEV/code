@@ -1,5 +1,5 @@
 {
-  "name": "code",
+  "name": "avelin",
   "private": true,
   "scripts": {
     "build": "turbo build",
