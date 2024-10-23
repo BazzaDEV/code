@@ -1,7 +1,4 @@
 {
-  "compilerOptions": {
-    "strict": true,
-    "jsx": "react-jsx",
-    "jsxImportSource": "hono/jsx"
-  }
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@avelin/typescript-config/hono.json"
 }

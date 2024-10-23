@@ -1,7 +1,10 @@
 {
   "name": "@avelin/api",
   "scripts": {
-    "dev": "bun run --hot src/index.ts"
+    "dev": "bun run --watch src/index.ts"
+  },
+  "exports": {
+    "./client": "./src/client.ts"
   },
   "dependencies": {
     "hono": "^4.6.6"
@@ -9,6 +12,8 @@
   "devDependencies": {
     "@avelin/eslint-config": "workspace:*",
     "@avelin/prettier-config": "workspace:*",
-    "@types/bun": "latest"
+    "@avelin/typescript-config": "workspace:*",
+    "@types/bun": "latest",
+    "eslint": "^8.57.1"
   }
 }

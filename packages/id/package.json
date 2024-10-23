@@ -1,8 +1,7 @@
 {
-  "name": "@avelin/database",
+  "name": "@avelin/id",
   "version": "0.0.0",
   "private": true,
-  "license": "MIT",
   "publishConfig": {
     "access": "public"
   },
@@ -13,14 +12,10 @@
     "@avelin/eslint-config": "workspace:*",
     "@avelin/prettier-config": "workspace:*",
     "@avelin/typescript-config": "workspace:*",
-    "drizzle-kit": "^0.26.2",
+    "@types/uuid": "^10.0.0",
     "eslint": "^8"
   },
   "dependencies": {
-    "@neondatabase/serverless": "^0.10.1",
-    "dotenv": "^16.4.5"
-  },
-  "peerDependencies": {
-    "drizzle-orm": "^0.35.3"
+    "uuid": "^10.0.0"
   }
 }

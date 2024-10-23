@@ -1,0 +1,18 @@
+{
+  "name": "@avelin/auth",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@avelin/database": "workspace:*",
+    "@avelin/id": "workspace:*",
+    "@oslojs/crypto": "^1.0.1",
+    "@oslojs/encoding": "^1.1.0",
+    "drizzle-orm": "^0.35.3"
+  },
+  "devDependencies": {
+    "@avelin/eslint-config": "workspace:*",
+    "@avelin/prettier-config": "workspace:*",
+    "@avelin/typescript-config": "workspace:*",
+    "eslint": "^8"
+  }
+}
