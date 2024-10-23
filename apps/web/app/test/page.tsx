@@ -1,13 +1,13 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { client } from '@avelin/api/client'
+import { api } from '@/lib/api'
 
 export default function Page() {
   const [value, setValue] = useState<string | undefined>(undefined)
   useEffect(() => {
     async function fetchData() {
-      const res = await client.auth.health.$get()
+      const res = await api.auth.health.$get()
       const data = await res.json()
 
       setValue(data.message)
