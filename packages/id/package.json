@@ -12,7 +12,8 @@
     "@avelin/eslint-config": "workspace:*",
     "@avelin/prettier-config": "workspace:*",
     "@avelin/typescript-config": "workspace:*",
-    "@types/uuid": "^10.0.0"
+    "@types/uuid": "^10.0.0",
+    "eslint": "^8"
   },
   "dependencies": {
     "uuid": "^10.0.0"

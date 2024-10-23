@@ -13,7 +13,8 @@
     "@avelin/eslint-config": "workspace:*",
     "@avelin/prettier-config": "workspace:*",
     "@avelin/typescript-config": "workspace:*",
-    "drizzle-kit": "^0.26.2"
+    "drizzle-kit": "^0.26.2",
+    "eslint": "^8"
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.10.1",

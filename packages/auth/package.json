@@ -12,6 +12,7 @@
   "devDependencies": {
     "@avelin/eslint-config": "workspace:*",
     "@avelin/prettier-config": "workspace:*",
-    "@avelin/typescript-config": "workspace:*"
+    "@avelin/typescript-config": "workspace:*",
+    "eslint": "^8"
   }
 }

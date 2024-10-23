@@ -14,6 +14,6 @@
     "@avelin/prettier-config": "workspace:*",
     "@avelin/typescript-config": "workspace:*",
     "@types/bun": "latest",
-    "eslint": "^8"
+    "eslint": "^8.57.1"
   }
 }
