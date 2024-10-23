@@ -7,6 +7,7 @@
     "./client": "./src/client.ts"
   },
   "dependencies": {
+    "@avelin/auth": "workspace:*",
     "hono": "^4.6.6"
   },
   "devDependencies": {

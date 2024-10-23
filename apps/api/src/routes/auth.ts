@@ -1,5 +1,6 @@
 import { Hono } from 'hono'
+import { generateGoogleAuthorizationUrl } from '@avelin/auth'
 
-export const authApp = new Hono()
-  .get('/health', (c) => c.json({ message: 'Hello!' }))
-  .get('/', (c) => c.json('Hi!'))
+export const authApp = new Hono().post('/google', async (c) => {
+  const { state, codeVerifier, url } = generateGoogleAuthorizationUrl()
+})

@@ -1,5 +1,4 @@
 import { pgTable, primaryKey, text, timestamp, uuid } from 'drizzle-orm/pg-core'
-import { InferSelectModel } from 'drizzle-orm/table'
 
 export const users = pgTable('users', {
   id: uuid().primaryKey(),
@@ -37,7 +36,3 @@ export const schema = {
   sessions,
   oauthAccounts,
 }
-
-export type User = InferSelectModel<typeof users>
-export type Session = InferSelectModel<typeof sessions>
-export type OAuthAccount = InferSelectModel<typeof oauthAccounts>
