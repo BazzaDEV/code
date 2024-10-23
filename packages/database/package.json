@@ -9,18 +9,22 @@
   "exports": {
     ".": "./src/index.ts"
   },
+  "scripts": {
+    "dev": "pnpm run db:studio",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio"
+  },
   "devDependencies": {
     "@avelin/eslint-config": "workspace:*",
     "@avelin/prettier-config": "workspace:*",
     "@avelin/typescript-config": "workspace:*",
     "drizzle-kit": "^0.26.2",
-    "eslint": "^8"
+    "eslint": "^8",
+    "typescript": "^5.6.3"
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.10.1",
-    "dotenv": "^16.4.5"
-  },
-  "peerDependencies": {
+    "dotenv": "^16.4.5",
     "drizzle-orm": "^0.35.3"
   }
 }

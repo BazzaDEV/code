@@ -1,11 +1,11 @@
 import { pgTable, primaryKey, text, timestamp, uuid } from 'drizzle-orm/pg-core'
 import { InferSelectModel } from 'drizzle-orm/table'
 
-const users = pgTable('users', {
+export const users = pgTable('users', {
   id: uuid().primaryKey(),
 })
 
-const oauthAccounts = pgTable(
+export const oauthAccounts = pgTable(
   'oauth_accounts',
   {
     providerId: text().notNull(),
@@ -21,7 +21,7 @@ const oauthAccounts = pgTable(
   },
 )
 
-const sessions = pgTable('sessions', {
+export const sessions = pgTable('sessions', {
   id: uuid().primaryKey(),
   userId: uuid()
     .notNull()
