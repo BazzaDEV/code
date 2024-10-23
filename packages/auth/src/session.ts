@@ -24,7 +24,7 @@ export async function validateSession(
     .select({ user: schema.users, session: schema.sessions })
     .from(schema.sessions)
     .innerJoin(schema.users, eq(schema.sessions.userId, schema.users.id))
-    .where(schema.sessions.id, sessionId)
+    .where(eq(schema.sessions.id, sessionId))
 
   const { user, session } = result[0]
 

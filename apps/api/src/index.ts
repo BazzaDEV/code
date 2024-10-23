@@ -1,9 +1,11 @@
 import { Hono } from 'hono'
+import { auth } from '@avelin/api-routes'
 
 const app = new Hono()
 
-app.get('/', (c) => {
-  return c.text('Hello Hono!')
-})
+app.route('/auth', auth)
 
-export default app
+export default {
+  port: 4000,
+  fetch: app.fetch,
+}

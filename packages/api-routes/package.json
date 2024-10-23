@@ -1,13 +1,18 @@
 {
-  "name": "@avelin/auth",
+  "name": "@avelin/api-routes",
   "version": "0.0.0",
   "private": true,
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "dependencies": {
+    "@avelin/auth": "workspace:*",
     "@avelin/database": "workspace:*",
     "@avelin/id": "workspace:*",
-    "@oslojs/crypto": "^1.0.1",
-    "@oslojs/encoding": "^1.1.0",
-    "drizzle-orm": "^0.35.3"
+    "hono": "^4.6.6"
   },
   "devDependencies": {
     "@avelin/eslint-config": "workspace:*",
