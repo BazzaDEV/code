@@ -1,6 +1,16 @@
 {
   "name": "avelin",
   "private": true,
+  "workspaces": [
+    "apps/api",
+    "apps/web",
+    "packages/auth",
+    "packages/database",
+    "packages/id",
+    "packages/eslint-config",
+    "packages/prettier-config",
+    "packages/typescript-config"
+  ],
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
