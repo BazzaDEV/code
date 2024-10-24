@@ -1,19 +1,15 @@
 {
   "name": "@avelin/auth",
   "version": "0.0.0",
-  "type": "module",
   "private": true,
-  "publishConfig": {
-    "access": "public"
-  },
   "scripts": {
     "dev": "tsc --watch",
     "build": "tsc"
   },
   "exports": {
     ".": {
-      "types": "./index.ts",
-      "default": "./dist/index.ts"
+      "types": "./src/index.ts",
+      "default": "./dist/index.js"
     }
   },
   "dependencies": {
@@ -29,7 +25,7 @@
     "@avelin/prettier-config": "workspace:*",
     "@avelin/typescript-config": "workspace:*",
     "@types/bun": "catalog:",
-    "eslint": "^8",
-    "typescript": "^5.6.3"
+    "eslint": "catalog:",
+    "typescript": "catalog:"
   }
 }
