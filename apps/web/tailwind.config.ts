@@ -1,19 +1,11 @@
-import type { Config } from "tailwindcss";
+import baseConfig from '@avelin/ui/tailwind'
+import type { Config } from 'tailwindcss'
 
-const config: Config = {
+export default {
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    './app/**/*.{ts,tsx}',
+    './lib/**/*.{ts,tsx}',
+    '../../packages/ui/src/**/*.{ts,tsx}',
   ],
-  theme: {
-    extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-      },
-    },
-  },
-  plugins: [],
-};
-export default config;
+  presets: [baseConfig],
+} satisfies Config

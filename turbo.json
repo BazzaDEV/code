@@ -2,6 +2,9 @@
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
   "tasks": {
+    "clean": {
+      "cache": false
+    },
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
@@ -30,10 +33,12 @@
       "persistent": true
     },
     "ui:init": {
-      "cache": false
+      "cache": false,
+      "persistent": true
     },
     "ui:add": {
-      "cache": false
+      "cache": false,
+      "persistent": true
     }
   }
 }

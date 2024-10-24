@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { innovatorGrotesk } from '@/lib/fonts'
 import './globals.css'
+import '@avelin/ui/globals.css'
 
 export const metadata: Metadata = {
   title: 'Avelin',
