@@ -1,4 +1,4 @@
-import { drizzle } from 'drizzle-orm/neon-http'
+import { drizzle } from 'drizzle-orm/neon-serverless'
 import { config } from 'dotenv'
 
 config({ path: '.env' }) // or .env.local

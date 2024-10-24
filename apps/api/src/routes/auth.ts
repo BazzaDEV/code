@@ -1,6 +1,7 @@
 import { Hono } from 'hono'
 import {
   createSession,
+  createUserViaGoogle,
   generateGoogleAuthorizationUrl,
   getUserByGoogleId,
   google,
@@ -78,6 +79,16 @@ export const authApp = new Hono()
     }
 
     // If the user doesn't exist, create their account
+    const newUser = await createUserViaGoogle({
+      ...claims,
+      googleId: claims.sub,
+    })
 
-    return c.json(claims)
+    const session = await createSession(newUser.id)
+
+    setCookie(c, 'avelin_session_id', session.id, {
+      expires: session.expiresAt,
+    })
+
+    return c.redirect(process.env.APP_URL ?? '/')
   })

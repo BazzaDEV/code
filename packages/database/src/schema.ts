@@ -1,7 +1,7 @@
-import { pgTable, primaryKey, text, timestamp, uuid } from 'drizzle-orm/pg-core'
+import { pgTable, primaryKey, text, timestamp } from 'drizzle-orm/pg-core'
 
 export const users = pgTable('users', {
-  id: uuid().primaryKey(),
+  id: text().primaryKey(),
   email: text().notNull().unique(),
   name: text().notNull(),
   picture: text(),
@@ -12,20 +12,20 @@ export const oauthAccounts = pgTable(
   {
     providerId: text().notNull(),
     providerUserId: text().notNull(),
-    userId: uuid()
+    userId: text()
       .notNull()
       .references(() => users.id),
   },
-  (table) => {
-    return {
-      pk: primaryKey({ columns: [table.providerId, table.providerUserId] }),
-    }
-  },
+  // (table) => {
+  //   return {
+  //     pk: primaryKey({ columns: [table.providerId, table.providerUserId] }),
+  //   }
+  // },
 )
 
 export const sessions = pgTable('sessions', {
-  id: uuid().primaryKey(),
-  userId: uuid()
+  id: text().primaryKey(),
+  userId: text()
     .notNull()
     .references(() => users.id),
   expiresAt: timestamp({
