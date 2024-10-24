@@ -7,7 +7,10 @@
     "access": "public"
   },
   "exports": {
-    ".": "./src/index.ts"
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./dist/index.js"
+    }
   },
   "scripts": {
     "dev": "tsc --watch",
@@ -15,17 +18,17 @@
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio"
   },
+  "dependencies": {
+    "@neondatabase/serverless": "catalog:",
+    "dotenv": "catalog:",
+    "drizzle-orm": "catalog:"
+  },
   "devDependencies": {
     "@avelin/eslint-config": "workspace:*",
     "@avelin/prettier-config": "workspace:*",
     "@avelin/typescript-config": "workspace:*",
-    "drizzle-kit": "^0.26.2",
-    "eslint": "^8",
-    "typescript": "^5.6.3"
-  },
-  "dependencies": {
-    "@neondatabase/serverless": "^0.10.1",
-    "dotenv": "^16.4.5",
-    "drizzle-orm": "^0.35.3"
+    "drizzle-kit": "catalog:",
+    "eslint": "catalog:",
+    "typescript": "catalog:"
   }
 }

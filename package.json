@@ -9,13 +9,11 @@
     "db:push": "turbo run db:push"
   },
   "devDependencies": {
-    "@avelin/eslint-config": "workspace:*",
-    "@avelin/prettier-config": "workspace:*",
-    "prettier": "^3.2.5",
-    "turbo": "^2.2.3",
-    "typescript": "^5.6.2"
+    "prettier": "catalog:",
+    "turbo": "catalog:",
+    "typescript": "catalog:"
   },
-  "packageManager": "pnpm@8.15.6",
+  "packageManager": "pnpm@9.5.0",
   "engines": {
     "node": ">=20"
   }

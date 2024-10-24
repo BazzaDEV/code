@@ -11,7 +11,7 @@
   },
   "exports": {
     ".": {
-      "types": "./index.ts",
+      "types": "./src/index.ts",
       "default": "./dist/index.ts"
     }
   },
@@ -19,10 +19,10 @@
     "@avelin/eslint-config": "workspace:*",
     "@avelin/prettier-config": "workspace:*",
     "@avelin/typescript-config": "workspace:*",
-    "@types/uuid": "^10.0.0",
+    "@types/uuid": "catalog:",
     "eslint": "^8"
   },
   "dependencies": {
-    "uuid": "^10.0.0"
+    "uuid": "catalog:"
   }
 }

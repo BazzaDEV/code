@@ -8,13 +8,14 @@
   },
   "dependencies": {
     "@avelin/auth": "workspace:*",
-    "hono": "^4.6.6"
+    "hono": "catalog:"
   },
   "devDependencies": {
     "@avelin/eslint-config": "workspace:*",
     "@avelin/prettier-config": "workspace:*",
     "@avelin/typescript-config": "workspace:*",
-    "@types/bun": "latest",
-    "eslint": "^8.57.1"
+    "@types/bun": "catalog:",
+    "eslint": "catalog:",
+    "typescript": "catalog:"
   }
 }
