@@ -67,6 +67,7 @@ export const authApp = new Hono()
 
     const existingUser = await getUserByGoogleId(claims.sub)
 
+    // If the user already exists, log them in
     if (existingUser) {
       const session = await createSession(existingUser.id)
       setCookie(c, 'avelin_session_id', session.id, {
@@ -75,6 +76,8 @@ export const authApp = new Hono()
 
       return c.redirect(process.env.APP_URL ?? '/')
     }
+
+    // If the user doesn't exist, create their account
 
     return c.json(claims)
   })
