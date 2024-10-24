@@ -4,6 +4,7 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "target": "es2022",
+    "lib": ["es2022", "DOM", "DOM.Iterable"],
     "allowJs": true,
     "isolatedModules": true,
     "strict": true,

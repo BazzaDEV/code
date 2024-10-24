@@ -1,0 +1,36 @@
+{
+  "name": "@avelin/ui",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "ui:init": "pnpm dlx shadcn@latest init",
+    "ui:add": "pnpm dlx shadcn@latest add",
+    "dev": "tsc --watch",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@avelin/eslint-config": "workspace:*",
+    "@avelin/prettier-config": "workspace:*",
+    "@avelin/typescript-config": "workspace:*",
+    "autoprefixer": "^10",
+    "eslint": "catalog:",
+    "postcss": "^8",
+    "postcss-load-config": "^6",
+    "prettier": "catalog:",
+    "tailwindcss": "catalog:",
+    "typescript": "catalog:"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^3.9.0",
+    "@radix-ui/react-label": "^2.1.0",
+    "@radix-ui/react-slot": "^1.1.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.453.0",
+    "react": "catalog:react19",
+    "react-hook-form": "^7.53.1",
+    "tailwind-merge": "^2.5.4",
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.23.8"
+  }
+}

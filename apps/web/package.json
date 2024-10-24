@@ -10,17 +10,21 @@
   },
   "dependencies": {
     "@avelin/api": "workspace:*",
-    "react": "19.0.0-rc-69d4b800-20241021",
-    "react-dom": "19.0.0-rc-69d4b800-20241021",
+    "react": "catalog:react19",
+    "react-dom": "catalog:react19",
     "next": "15.0.1"
   },
   "devDependencies": {
+    "@avelin/prettier-config": "workspace:*",
+    "@avelin/eslint-config": "workspace:*",
+    "@avelin/typescript-config": "workspace:*",
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "catalog:react19",
+    "@types/react-dom": "catalog:react19",
     "postcss": "^8",
-    "tailwindcss": "^3.4.1",
+    "tailwindcss": "catalog:",
     "eslint": "catalog:",
+    "prettier": "catalog:",
     "typescript": "catalog:",
     "eslint-config-next": "15.0.1"
   }

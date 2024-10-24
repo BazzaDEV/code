@@ -28,6 +28,12 @@
     "db:studio": {
       "cache": false,
       "persistent": true
+    },
+    "ui:init": {
+      "cache": false
+    },
+    "ui:add": {
+      "cache": false
     }
   }
 }
