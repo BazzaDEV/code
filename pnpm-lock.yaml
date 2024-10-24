@@ -139,6 +139,9 @@ importers:
       '@avelin/api':
         specifier: workspace:*
         version: link:../api
+      '@avelin/icons':
+        specifier: workspace:*
+        version: link:../../packages/icons
       '@avelin/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -280,6 +283,37 @@ importers:
       eslint-plugin-only-warn:
         specifier: 'catalog:'
         version: 1.1.0
+      typescript:
+        specifier: 'catalog:'
+        version: 5.6.3
+
+  packages/icons:
+    dependencies:
+      react:
+        specifier: catalog:react19
+        version: 19.0.0-rc-69d4b800-20241021
+    devDependencies:
+      '@avelin/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@avelin/prettier-config':
+        specifier: workspace:*
+        version: link:../prettier-config
+      '@avelin/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@types/react':
+        specifier: catalog:react19
+        version: 18.3.12
+      eslint:
+        specifier: 'catalog:'
+        version: 8.57.1
+      prettier:
+        specifier: 'catalog:'
+        version: 3.3.3
+      tailwindcss:
+        specifier: 'catalog:'
+        version: 3.4.14
       typescript:
         specifier: 'catalog:'
         version: 5.6.3
@@ -485,6 +519,9 @@ importers:
       tailwindcss:
         specifier: 'catalog:'
         version: 3.4.14
+      tailwindcss-radix-colors:
+        specifier: ^1.4.1
+        version: 1.4.1(tailwindcss@3.4.14)
       typescript:
         specifier: 'catalog:'
         version: 5.6.3
@@ -1063,6 +1100,9 @@ packages:
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
+
+  '@radix-ui/colors@3.0.0':
+    resolution: {integrity: sha512-FUOsGBkHrYJwCSEtWRCIfQbZG7q1e6DgxCIOe1SUQzDe/7rXXeA47s8yCn6fuTNQAj1Zq4oTFi9Yjp3wzElcxg==}
 
   '@radix-ui/number@1.1.0':
     resolution: {integrity: sha512-V3gRzhVNU1ldS5XhAPTom1fOIo4ccrjjJgmE+LI2h/WaFpHmx0MQApT+KZHnx8abG6Avtfcz4WoEciMnpFT3HQ==}
@@ -3673,6 +3713,11 @@ packages:
     peerDependencies:
       tailwindcss: '>=3.0.0 || insiders'
 
+  tailwindcss-radix-colors@1.4.1:
+    resolution: {integrity: sha512-jlSYXsjq8uavjQPXbMJJwDhojG0wlTasJTnM9hmXXPaDOvNUTeeU0YEILWakUpuxWJ8xyzyInz9JVZGHs3/dCw==}
+    peerDependencies:
+      tailwindcss: '>=3.0.0'
+
   tailwindcss@3.4.14:
     resolution: {integrity: sha512-IcSvOcTRcUtQQ7ILQL5quRDg7Xs93PdJEk1ZLbhhvJc7uj/OAhYOnruEiwnGgBvUtaUAJ8/mhSw1o8L2jCiENA==}
     engines: {node: '>=14.0.0'}
@@ -4273,6 +4318,8 @@ snapshots:
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
+
+  '@radix-ui/colors@3.0.0': {}
 
   '@radix-ui/number@1.1.0': {}
 
@@ -7099,6 +7146,11 @@ snapshots:
 
   tailwindcss-animate@1.0.7(tailwindcss@3.4.14):
     dependencies:
+      tailwindcss: 3.4.14
+
+  tailwindcss-radix-colors@1.4.1(tailwindcss@3.4.14):
+    dependencies:
+      '@radix-ui/colors': 3.0.0
       tailwindcss: 3.4.14
 
   tailwindcss@3.4.14:

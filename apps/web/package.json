@@ -12,22 +12,23 @@
   "dependencies": {
     "@avelin/api": "workspace:*",
     "@avelin/ui": "workspace:*",
+    "@avelin/icons": "workspace:*",
+    "next": "15.0.1",
     "react": "catalog:react19",
-    "react-dom": "catalog:react19",
-    "next": "15.0.1"
+    "react-dom": "catalog:react19"
   },
   "devDependencies": {
-    "@avelin/prettier-config": "workspace:*",
     "@avelin/eslint-config": "workspace:*",
+    "@avelin/prettier-config": "workspace:*",
     "@avelin/typescript-config": "workspace:*",
     "@types/node": "^20",
     "@types/react": "catalog:react19",
     "@types/react-dom": "catalog:react19",
-    "postcss": "^8",
-    "tailwindcss": "catalog:",
     "eslint": "catalog:",
+    "eslint-config-next": "15.0.1",
+    "postcss": "^8",
     "prettier": "catalog:",
-    "typescript": "catalog:",
-    "eslint-config-next": "15.0.1"
+    "tailwindcss": "catalog:",
+    "typescript": "catalog:"
   }
 }

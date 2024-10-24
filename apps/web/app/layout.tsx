@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { innovatorGrotesk } from '@/lib/fonts'
+import { innovatorGrotesk, jetbrainsMono } from '@/lib/fonts'
 import './globals.css'
 import '@avelin/ui/globals.css'
 
@@ -15,7 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={`${innovatorGrotesk.className} antialiased`}>
+      <body
+        className={`${innovatorGrotesk.variable} ${jetbrainsMono.variable} font-sans antialiased`}
+      >
         {children}
       </body>
     </html>
