@@ -10,7 +10,8 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "dev": "pnpm run db:studio",
+    "dev": "tsc --watch",
+    "build": "tsc",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio"
   },
