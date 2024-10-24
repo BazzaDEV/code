@@ -6,8 +6,15 @@
   "publishConfig": {
     "access": "public"
   },
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc"
+  },
   "exports": {
-    ".": "./src/index.ts"
+    ".": {
+      "types": "./index.ts",
+      "default": "./dist/index.ts"
+    }
   },
   "dependencies": {
     "@avelin/database": "workspace:*",
